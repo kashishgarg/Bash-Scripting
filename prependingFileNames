@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+set -x
+
+currentDate=$(date "+%Y-%m-%d")
+DIR=$1
+
+if [ -z $DIR ]; then
+  echo "Usage: Give the directory name as the arguement"
+  exit 1
+fi
+
+for file in "$DIR/"*
+do
+  if [ -f "$file" ] && [ ! -x "$file" ]; then
+  fileName=${file##*/}
+  newName="$currentDate-$fileName"
+  mv $fileName $newName
+  fi
+done 
