@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+HOURS=$1
+DIR=$(dirname $0)
+
+
+if [ -z $HOURS ]; then
+  HOURS=1
+fi
+
+KEY=$DIR/id_rsa
+
+/usr/bin/ssh-add -D
+/usr/bin/ssh-add -t ${HOURS}H $KEY
+hdiutil detach -force /Volumes/<flash-drive-name>
